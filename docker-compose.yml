@@ -1,0 +1,53 @@
+version: '3.9'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: ssd_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root_dev_password}
+      MYSQL_DATABASE: ssd_proveedores
+      MYSQL_USER: ssd_app
+      MYSQL_PASSWORD: ${DB_PASSWORD:-SsdApp2026Segura}
+    ports:
+      - '3306:3306'
+    volumes:
+      - ssd_mysql_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
+      - ./database/seed.sql:/docker-entrypoint-initdb.d/2-seed.sql
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    container_name: ssd_backend
+    restart: unless-stopped
+    environment:
+      PORT: 4000
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: ssd_app
+      DB_PASSWORD: ${DB_PASSWORD:-SsdApp2026Segura}
+      DB_NAME: ssd_proveedores
+      JWT_SECRET: ${JWT_SECRET:-cambia_esta_clave_en_produccion}
+    ports:
+      - '4000:4000'
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    container_name: ssd_frontend
+    restart: unless-stopped
+    ports:
+      - '8080:80'
+    depends_on:
+      - backend
+
+volumes:
+  ssd_mysql_data:
