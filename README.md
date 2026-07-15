@@ -46,10 +46,8 @@ ssd-proveedores/
    cada proveedor por criterio), el sistema normaliza, pondera, calcula las
    distancias a las soluciones ideales positiva/negativa, y ordena a los
    proveedores por su coeficiente de cercanía relativa (CC*).
-
-## Cómo ejecutar en local
-
-### Opción A: Docker Compose (recomendado)
+   Para una explicación detallada del algoritmo y su integración, consulte
+   [docs/modulo-topsis.md](docs/modulo-topsis.md).
 
 ```bash
 docker compose up --build
