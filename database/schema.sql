@@ -7,7 +7,7 @@
 CREATE DATABASE IF NOT EXISTS ssd_proveedores
   CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-USE ssd_proveedores;
+USE railway;
 
 -- ------------------------------------------------------------
 -- Tabla: usuarios (analistas que usan el SSD)

@@ -1,7 +1,7 @@
 -- ============================================================
 -- Datos semilla (seed) para entorno de pruebas / demostracion
 -- ============================================================
-USE ssd_proveedores;
+USE railway;
 
 -- Usuario administrador de demo (password: Admin123* -> se genera con bcrypt desde la app,
 -- este INSERT es solo referencial; usar POST /api/auth/registro para generar el hash real)
