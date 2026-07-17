@@ -3,6 +3,7 @@ import api from './services/api';
 import './styles.css';
 
 function App() {
+  // 🔹 Estados
   const [proveedores, setProveedores] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -16,21 +17,28 @@ function App() {
   const [editando, setEditando] = useState(false);
   const [idEditar, setIdEditar] = useState(null);
 
+  // 🔹 Cargar datos al iniciar
   useEffect(() => {
     obtenerProveedores();
   }, []);
 
+  // 🔹 Obtener proveedores
   const obtenerProveedores = async () => {
     try {
       const res = await api.get('/proveedores');
-      setProveedores(res.data);
+
+      console.log("DATOS BACKEND:", res.data);
+
+      setProveedores(Array.isArray(res.data) ? res.data : []);
+
     } catch (error) {
-      console.error(error);
+      console.error("ERROR:", error);
     } finally {
       setLoading(false);
     }
   };
 
+  // 🔹 Manejar inputs
   const handleChange = (e) => {
     setForm({
       ...form,
@@ -38,6 +46,7 @@ function App() {
     });
   };
 
+  // 🔹 Registrar o actualizar
   const handleSubmit = async () => {
     try {
       if (editando) {
@@ -48,11 +57,13 @@ function App() {
 
       limpiarFormulario();
       obtenerProveedores();
+
     } catch (error) {
       console.error(error);
     }
   };
 
+  // 🔹 Editar
   const editarProveedor = (p) => {
     setForm({
       razon_social: p.razon_social,
@@ -60,12 +71,14 @@ function App() {
       rubro: p.rubro,
       telefono: p.telefono
     });
+
     setEditando(true);
     setIdEditar(p.id);
   };
 
+  // 🔹 Eliminar
   const eliminarProveedor = async (id) => {
-    if (!confirm('¿Eliminar proveedor?')) return;
+    if (!window.confirm('¿Eliminar proveedor?')) return;
 
     try {
       await api.delete(`/proveedores/${id}`);
@@ -75,6 +88,7 @@ function App() {
     }
   };
 
+  // 🔹 Limpiar formulario
   const limpiarFormulario = () => {
     setForm({
       razon_social: '',
@@ -82,10 +96,12 @@ function App() {
       rubro: '',
       telefono: ''
     });
+
     setEditando(false);
     setIdEditar(null);
   };
 
+  // 🔹 Render
   return (
     <div style={{ maxWidth: '1000px', margin: 'auto' }}>
       <h2>Gestión de Proveedores</h2>
@@ -149,6 +165,7 @@ function App() {
               <th>Acciones</th>
             </tr>
           </thead>
+
           <tbody>
             {proveedores.length === 0 ? (
               <tr>
