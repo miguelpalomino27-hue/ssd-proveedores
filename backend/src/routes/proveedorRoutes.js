@@ -1,9 +1,13 @@
 const express = require('express');
 const router = express.Router();
-// const { verificarToken } = require('../middleware/auth'); ❌ desactivado
+
+// ❌ QUITADO EL TOKEN
+// const { verificarToken } = require('../middleware/auth');
+
 const ctrl = require('../controllers/proveedorController');
 
-// ❌ router.use(verificarToken);  ← ELIMINADO
+// ❌ ELIMINAR ESTO
+// router.use(verificarToken);
 
 router.get('/', ctrl.listar);
 router.get('/:id', ctrl.obtener);
