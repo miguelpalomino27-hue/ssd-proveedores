@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "API REST del Sistema de Soporte de Decisiones (SSD) para seleccion de proveedores mediante AHP-TOPSIS",
   "main": "src/server.js",
+  "type": "module",
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",

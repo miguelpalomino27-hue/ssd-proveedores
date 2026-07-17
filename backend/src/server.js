@@ -1,15 +1,33 @@
-require('dotenv').config();
-const app = require('./app');
-const { verificarConexion } = require('./config/db');
+import express from "express";
+import dotenv from "dotenv";
+import cors from "cors";
 
+// Configurar variables de entorno
+dotenv.config();
+
+// Inicializar app
+const app = express();
+
+// Middlewares
+app.use(cors());
+app.use(express.json());
+
+// 🔥 Ruta de prueba (IMPORTANTE para Railway)
+app.get("/", (req, res) => {
+  res.send("API funcionando 🚀");
+});
+
+// 👉 Aquí luego vas a importar tus rutas
+// import authRoutes from "./routes/auth.routes.js";
+// app.use("/api/auth", authRoutes);
+
+// import proveedoresRoutes from "./routes/proveedores.routes.js";
+// app.use("/api/proveedores", proveedoresRoutes);
+
+// Puerto dinámico (CLAVE para Railway)
 const PORT = process.env.PORT || 4000;
 
-async function iniciar() {
-  await verificarConexion();
-  app.listen(PORT, () => {
-    console.log(`[Servidor] API del SSD de proveedores escuchando en el puerto ${PORT}`);
-  });
-}
-
-iniciar();
-  
+// Levantar servidor
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en puerto ${PORT}`);
+});
