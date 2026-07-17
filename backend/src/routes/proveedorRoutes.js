@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { verificarToken } = require('../middleware/auth');
+// const { verificarToken } = require('../middleware/auth'); ❌ desactivado
 const ctrl = require('../controllers/proveedorController');
 
-router.use(verificarToken);
+// ❌ router.use(verificarToken);  ← ELIMINADO
+
 router.get('/', ctrl.listar);
 router.get('/:id', ctrl.obtener);
 router.post('/', ctrl.crear);
