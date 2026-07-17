@@ -2,32 +2,41 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 
-// Configurar variables de entorno
 dotenv.config();
 
-// Inicializar app
 const app = express();
 
-// Middlewares
 app.use(cors());
 app.use(express.json());
 
-// 🔥 Ruta de prueba (IMPORTANTE para Railway)
+// 🔥 Ruta raíz
 app.get("/", (req, res) => {
   res.send("API funcionando 🚀");
 });
 
-// 👉 Aquí luego vas a importar tus rutas
-// import authRoutes from "./routes/auth.routes.js";
-// app.use("/api/auth", authRoutes);
+// 🔥 👉 RUTA QUE TE FALTA (CLAVE)
+app.get("/api/proveedores", (req, res) => {
+  res.json([
+    {
+      id: 1,
+      razon_social: "Proveedor Tech SAC",
+      ruc: "20123456789",
+      rubro: "Tecnología",
+      telefono: "987654321"
+    },
+    {
+      id: 2,
+      razon_social: "Servicios Industriales SRL",
+      ruc: "20987654321",
+      rubro: "Industria",
+      telefono: "912345678"
+    }
+  ]);
+});
 
-// import proveedoresRoutes from "./routes/proveedores.routes.js";
-// app.use("/api/proveedores", proveedoresRoutes);
-
-// Puerto dinámico (CLAVE para Railway)
+// Puerto Railway
 const PORT = process.env.PORT || 4000;
 
-// Levantar servidor
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en puerto ${PORT}`);
 });
