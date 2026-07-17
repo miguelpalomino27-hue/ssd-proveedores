@@ -1,7 +1,15 @@
-import API_URL from '../config';
+import api from './api';
 
-export const obtenerProveedores = async () => {
-  const response = await fetch(`${API_URL}/api/proveedores`);
-  const data = await response.json();
-  return data;
-};
+// 🔍 Obtener todos
+export const obtenerProveedores = () => api.get('/proveedores');
+
+// ➕ Crear
+export const crearProveedor = (data) => api.post('/proveedores', data);
+
+// ✏️ Actualizar
+export const actualizarProveedor = (id, data) =>
+  api.put(`/proveedores/${id}`, data);
+
+// ❌ Eliminar
+export const eliminarProveedor = (id) =>
+  api.delete(`/proveedores/${id}`);

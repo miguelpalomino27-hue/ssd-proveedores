@@ -12,10 +12,12 @@ export default function Proveedores() {
 
   async function cargar() {
     setCargando(true);
+    setError('');
     try {
-      const { data } = await api.get('/proveedores');
-      setProveedores(data);
+      const res = await api.get('/proveedores');
+      setProveedores(res.data);
     } catch (err) {
+      console.error(err);
       setError('No se pudo cargar la lista de proveedores');
     } finally {
       setCargando(false);
@@ -37,8 +39,9 @@ export default function Proveedores() {
       }
       setForm(VACIO);
       setEditandoId(null);
-      cargar();
+      await cargar();
     } catch (err) {
+      console.error(err);
       setError(err.response?.data?.mensaje || 'Error al guardar proveedor');
     }
   }
@@ -55,9 +58,14 @@ export default function Proveedores() {
   }
 
   async function eliminar(id) {
-    if (!confirm('¿Desactivar este proveedor?')) return;
-    await api.delete(`/proveedores/${id}`);
-    cargar();
+    if (!window.confirm('¿Desactivar este proveedor?')) return;
+    try {
+      await api.delete(`/proveedores/${id}`);
+      await cargar();
+    } catch (err) {
+      console.error(err);
+      setError('Error al eliminar proveedor');
+    }
   }
 
   return (
@@ -76,24 +84,44 @@ export default function Proveedores() {
           </div>
           <div>
             <label>RUC (11 dígitos)</label>
-            <input value={form.ruc} onChange={(e) => setForm({ ...form, ruc: e.target.value })} required />
+            <input
+              value={form.ruc}
+              onChange={(e) => setForm({ ...form, ruc: e.target.value })}
+              required
+            />
           </div>
         </div>
+
         <div className="form-row">
           <div>
             <label>Rubro</label>
-            <input value={form.rubro} onChange={(e) => setForm({ ...form, rubro: e.target.value })} />
+            <input
+              value={form.rubro}
+              onChange={(e) => setForm({ ...form, rubro: e.target.value })}
+            />
           </div>
           <div>
             <label>Teléfono</label>
-            <input value={form.telefono} onChange={(e) => setForm({ ...form, telefono: e.target.value })} />
+            <input
+              value={form.telefono}
+              onChange={(e) => setForm({ ...form, telefono: e.target.value })}
+            />
           </div>
         </div>
+
         <label>Dirección</label>
-        <input value={form.direccion} onChange={(e) => setForm({ ...form, direccion: e.target.value })} />
+        <input
+          value={form.direccion}
+          onChange={(e) => setForm({ ...form, direccion: e.target.value })}
+        />
+
         {error && <p className="error">{error}</p>}
+
         <div className="form-actions">
-          <button type="submit">{editandoId ? 'Actualizar' : 'Registrar proveedor'}</button>
+          <button type="submit">
+            {editandoId ? 'Actualizar' : 'Registrar proveedor'}
+          </button>
+
           {editandoId && (
             <button
               type="button"
@@ -130,8 +158,12 @@ export default function Proveedores() {
                 <td>{p.rubro}</td>
                 <td>{p.telefono}</td>
                 <td>
-                  <button className="link-btn" onClick={() => editar(p)}>Editar</button>
-                  <button className="link-btn peligro" onClick={() => eliminar(p.id)}>Desactivar</button>
+                  <button className="link-btn" onClick={() => editar(p)}>
+                    Editar
+                  </button>
+                  <button className="link-btn peligro" onClick={() => eliminar(p.id)}>
+                    Desactivar
+                  </button>
                 </td>
               </tr>
             ))}
