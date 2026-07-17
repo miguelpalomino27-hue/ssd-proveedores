@@ -6,6 +6,11 @@ la selección de proveedores de materiales de construcción, desarrollado como
 proyecto del curso IS-489 (Pruebas y Aseguramiento de la Calidad del
 Software) — Universidad Nacional de San Cristóbal de Huamanga.
 
+## Demo en producción
+
+- Backend (API REST) desplegado en Railway: https://ssd-proveedores-production.up.railway.app
+- Verificación de salud: https://ssd-proveedores-production.up.railway.app/api/health
+
 ## Arquitectura
 
 ```
@@ -96,4 +101,4 @@ frontend).
 ## Licencia y autoría
 
 Proyecto académico — IS-489 Pruebas y Aseguramiento de la Calidad del
-Software, docente Ing. Lizbeth Jaico Quispe, UNSCH, 2026.
+Software, docente Mg. Ing. Richard Zapata Casaverde , UNSCH, 2026.
