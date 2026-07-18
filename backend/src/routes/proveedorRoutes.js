@@ -1,13 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-// ❌ QUITADO EL TOKEN
-// const { verificarToken } = require('../middleware/auth');
+const { verificarToken } = require('../middleware/auth');
 
 const ctrl = require('../controllers/proveedorController');
 
-// ❌ ELIMINAR ESTO
-// router.use(verificarToken);
+router.use(verificarToken);
 
 router.get('/', ctrl.listar);
 router.get('/:id', ctrl.obtener);
