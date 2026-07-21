@@ -8,9 +8,9 @@ const api = axios.create({
   baseURL,
 });
 
-// 🔐 Interceptor para token (si luego lo usas)
+// 🔐 Interceptor para token (clave debe coincidir con AuthContext.jsx: 'ssd_token')
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('ssd_token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

@@ -139,6 +139,8 @@ export default function Proveedores() {
 
       {cargando ? (
         <p>Cargando...</p>
+      ) : proveedores.length === 0 ? (
+        <p className="estado-vacio">No hay proveedores registrados todavía.</p>
       ) : (
         <table className="tabla">
           <thead>

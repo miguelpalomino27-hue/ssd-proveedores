@@ -1,7 +1,96 @@
+:root {
+  --color-primario: #2563eb;
+  --color-primario-oscuro: #1e4fc4;
+  --color-secundario: #6b7280;
+  --color-peligro: #dc2626;
+  --color-fondo: #f4f6f9;
+  --color-texto: #1f2937;
+}
+
 body {
   font-family: Arial, sans-serif;
-  background: #f4f6f9;
+  background: var(--color-fondo);
+  color: var(--color-texto);
   margin: 0;
+}
+
+/* Barra de navegación */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  background: white;
+  padding: 12px 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.navbar-brand {
+  font-weight: bold;
+  color: var(--color-primario);
+}
+
+.navbar-links {
+  display: flex;
+  gap: 16px;
+}
+
+.navbar-links a {
+  color: var(--color-texto);
+  text-decoration: none;
+}
+
+.navbar-links a:hover {
+  color: var(--color-primario);
+}
+
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Pantallas de login / registro */
+.auth-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.auth-card {
+  background: white;
+  padding: 30px;
+  width: 100%;
+  max-width: 380px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.auth-card .subtitle {
+  color: var(--color-secundario);
+  margin-top: -8px;
+  margin-bottom: 20px;
+}
+
+.auth-card label {
+  display: block;
+  text-align: left;
+  margin-top: 10px;
+}
+
+.auth-card .link {
+  margin-top: 16px;
+}
+
+.estado-vacio {
+  text-align: center;
+  color: var(--color-secundario);
+  padding: 20px;
 }
 
 h2 {
@@ -41,14 +130,21 @@ button {
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  background: var(--color-primario);
+  color: white;
 }
 
 button:hover {
   opacity: 0.9;
 }
 
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 button.secundario {
-  background: gray;
+  background: var(--color-secundario);
   color: white;
 }
 
@@ -68,7 +164,7 @@ button.secundario {
 }
 
 .tabla th {
-  background: #007bff;
+  background: var(--color-primario);
   color: white;
   padding: 10px;
 }
@@ -80,16 +176,35 @@ button.secundario {
 
 .link-btn {
   background: none;
-  color: #007bff;
+  color: var(--color-primario);
   cursor: pointer;
   border: none;
+  padding: 4px 8px;
 }
 
 .link-btn.peligro {
-  color: red;
+  color: var(--color-peligro);
 }
 
 .error {
-  color: red;
+  color: var(--color-peligro);
   margin-top: 10px;
+}
+
+/* Pantallas angostas: formulario en una sola columna */
+@media (max-width: 600px) {
+  .form-card,
+  .tabla {
+    width: 94%;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
